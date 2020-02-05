@@ -1,0 +1,11 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.visionmeet.base.security.UserMapper">
+    <select id="readUser" parameterType="String" resultType="com.visionmeet.base.security.Member">
+        SELECT user_id, password FROM TB_USER WHERE user_id = #{user_id}
+    </select>
+    <select id="readAuthority" parameterType="String" resultType="String">
+        SELECT company_code FROM TB_USER_COMPANY WHERE user_id = #{user_id}
+    </select>
+</mapper>
+
+

@@ -1,0 +1,27 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="videoMapper">
+
+    <select id="selectVideo" parameterType="hashmap" resultType="hashmap">
+    <!-- selectVideo -->
+		SELECT ROW_NUMBER() OVER(
+		ORDER BY TR.company_code) AS idx,
+				 	 TR.company_code, room_id, master_id, customer_id, create_datetime, IFNULL(end_datetime, '') AS end_datetime, IFNULL(end_datetime, '') AS master_join_datetime, IFNULL(master_leave_datetime, '') AS master_leave_datetime, IFNULL(client_join_datetime, '') AS client_join_datetime, IFNULL(client_leave_datetime, '') AS client_leave_datetime
+		FROM TB_ROOM TR
+		INNER JOIN TB_USER_COMPANY TUC ON TR.company_code = TUC.company_code
+		WHERE end_datetime IS NULL AND user_id = #{user_id}	 
+    </select>
+    
+    
+    <select id="selectRoomHistory" parameterType="hashmap" resultType="hashmap">
+    <!-- selectRoomHistory -->
+        SELECT ROW_NUMBER() OVER(
+		ORDER BY TR.company_code) AS idx,
+				 	 TR.company_code, room_id, master_id, customer_id, create_datetime, IFNULL(end_datetime, '') AS end_datetime, IFNULL(end_datetime, '') AS master_join_datetime, IFNULL(master_leave_datetime, '') AS master_leave_datetime, IFNULL(client_join_datetime, '') AS client_join_datetime, IFNULL(client_leave_datetime, '') AS client_leave_datetime
+		FROM TB_ROOM TR
+		INNER JOIN TB_USER_COMPANY TUC ON TR.company_code = TUC.company_code
+		WHERE user_id = #{user_id}	 
+    </select>
+    
+</mapper>
+
+
